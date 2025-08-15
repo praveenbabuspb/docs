@@ -12140,13 +12140,7 @@ import { getFirestore } from "firebase/firestore";
 
 // TODO: Paste your web app's Firebase configuration below
 const firebaseConfig = {
-  apiKey: "AIzaSyCIblv8OkA9hv9NCllG1mumZmXmGJaeILs",
-  authDomain: "react-nav-gtr1f.firebaseapp.com",
-  projectId: "react-nav-gtr1f",
-  storageBucket: "react-nav-gtr1f.appspot.com",
-  messagingSenderId: "234776531584",
-  appId: "1:234776531584:web:5ea78e9c8a418dcd8b4c65",
-  measurementId: "G-7DRLKZ07SP"
+  
 };
 
 // Initialize Firebase
