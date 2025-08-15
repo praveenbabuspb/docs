@@ -1,0 +1,32 @@
+
+.
+├── BACKEND_API.md
+├── functions/
+│   ├── package.json
+│   ├── src/
+│   │   └── index.ts
+│   └── tsconfig.json
+└── src/
+    └── app/
+        └── api/
+            ├── admin/
+            │   └── orders/
+            │       ├── [orderId]/
+            │       │   └── route.ts
+            │       └── route.ts
+            ├── auth/
+            │   ├── register/
+            │   │   └── route.ts
+            │   └── session/
+            │       └── route.ts
+            ├── orders/
+            │   └── route.ts
+            ├── products/
+            │   └── route.ts
+            └── user/
+                ├── addresses/
+                │   ├── [addressId]/
+                │   │   └── route.ts
+                │   └── route.ts
+                └── test-notification/
+                    └── route.ts

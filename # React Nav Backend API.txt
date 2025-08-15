@@ -1,0 +1,170 @@
+# React Nav Backend API
+
+This document outlines the required API endpoints for the React Nav application to function with a real backend. The current application uses a mocked `DataService` that this API should replace.
+
+---
+
+## 1. Categories
+
+### Get Main Categories
+
+- **Endpoint:** `GET /api/categories`
+- **Description:** Retrieves the list of main product categories for navigation.
+- **Response (200 OK):**
+  ```json
+  [
+    { "name": "Supermarket", "icon": "ShoppingCart" },
+    { "name": "Pharmacy", "icon": "Pill" },
+    { "name": "Meat", "icon": "Beef" }
+  ]
+  ```
+
+### Get Super Saver Categories
+
+- **Endpoint:** `GET /api/categories/supersaver`
+- **Description:** Retrieves the list of categories for the "Super Saver" mode.
+- **Response (200 OK):**
+  ```json
+  [
+    { "name": "Super Deals", "icon": "Flame" },
+    { "name": "Bulk Buys", "icon": "ShoppingBag" }
+  ]
+  ```
+
+---
+
+## 2. Shops
+
+### Get Shops
+
+- **Endpoint:** `GET /api/shops`
+- **Description:** Retrieves a list of all shops. Can be filtered by a main category.
+- **Query Parameters:**
+  - `category` (optional): The name of the main category to filter shops by (e.g., "Supermarket").
+- **Response (200 OK):**
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "FreshMart Supermarket",
+      "description": "Your one-stop destination for all grocery needs",
+      "rating": 4.8,
+      "deliveryTime": "20-30 min",
+      "image": "🏪",
+      "category": "Supermarket"
+    }
+  ]
+  ```
+
+### Get Shop by Name
+
+- **Endpoint:** `GET /api/shops/{shopName}`
+- **Description:** Retrieves the details for a specific shop.
+- **URL Parameters:**
+  - `shopName`: The URL-encoded name of the shop (e.g., "FreshMart%20Supermarket").
+- **Response (200 OK):**
+  ```json
+  {
+    "id": 1,
+    "name": "FreshMart Supermarket",
+    "description": "Your one-stop destination for all grocery needs",
+    "rating": 4.8,
+    "deliveryTime": "20-30 min",
+    "image": "🏪",
+    "category": "Supermarket"
+  }
+  ```
+
+### Get Shop Categories
+
+- **Endpoint:** `GET /api/shops/{shopName}/categories`
+- **Description:** Retrieves the list of sub-categories available within a specific shop.
+- **URL Parameters:**
+  - `shopName`: The URL-encoded name of the shop.
+- **Response (200 OK):**
+  ```json
+  [
+    {
+      "name": "Grocery",
+      "url": "/grocery",
+      "icon": "ShoppingBag",
+      "image": "https://placehold.co/150x150.png"
+    },
+    {
+      "name": "Snacks",
+      "url": "/snacks",
+      "icon": "Coffee",
+      "image": "https://placehold.co/150x150.png"
+    }
+  ]
+  ```
+
+---
+
+## 3. Products
+
+### Get Products
+
+- **Endpoint:** `GET /api/products`
+- **Description:** Retrieves a list of products, filtered by shop and category.
+- **Query Parameters:**
+  - `shopName` (required): The URL-encoded name of the shop.
+  - `categoryName` (required): The URL-encoded name of the shop's internal category.
+- **Response (200 OK):**
+  ```json
+  [
+    {
+      "id": "rice-5kg",
+      "name": "Organic Rice 5kg",
+      "price": 12.99,
+      "unit": "per bag",
+      "image": "https://placehold.co/400x400.png",
+      "dataAiHint": "organic rice",
+      "category": "Grains",
+      "description": "Premium organic basmati rice",
+      "rating": 4.8,
+      "inStock": true,
+      "shopName": "FreshMart Supermarket",
+      "shopCategory": "Grocery"
+    }
+  ]
+  ```
+
+---
+
+## 4. Orders
+
+### Place an Order
+
+- **Endpoint:** `POST /api/orders`
+- **Description:** Submits a new order to be processed.
+- **Request Body:**
+  ```json
+  {
+    "shippingDetails": {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "address": "123 Main St",
+      "city": "New York",
+      "zip": "10001"
+    },
+    "items": [
+      {
+        "id": "rice-5kg",
+        "name": "Organic Rice 5kg",
+        "price": 12.99,
+        "quantity": 2,
+        "shopName": "FreshMart Supermarket"
+      }
+    ],
+    "total": 30.98
+  }
+  ```
+- **Response (201 Created):**
+  ```json
+  {
+    "orderId": "ORD123456789",
+    "status": "Processing",
+    "message": "Order placed successfully."
+  }
+  ```
